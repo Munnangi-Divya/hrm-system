@@ -2,16 +2,13 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 const init = require('./migrations/init');
-
-init();
-
 const app = express();
 app.use(cors());
 app.use(express.json());
-
+init().catch(e=>{ console.error(e); process.exit(1); });
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/employees', require('./routes/employees'));
 app.use('/api/teams', require('./routes/teams'));
 app.use('/api/logs', require('./routes/logs'));
-
-app.listen(process.env.PORT, () => {});
+const port = process.env.PORT || 5000;
+app.listen(port, ()=>console.log("Backend running on port " + port));

@@ -9,3 +9,5 @@ router.put('/:id', a, r(['admin','manager']), c.update);
 router.delete('/:id', a, r(['admin']), c.remove);
 
 module.exports = router;
+
+

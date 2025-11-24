@@ -1,10 +1,9 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
-
-const dbPath = path.join(__dirname, 'hrms.db');
-const db = new sqlite3.Database(dbPath, () => {
-  console.log("Connected to SQLite database");
+const { Pool } = require('pg');
+require('dotenv').config();
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
+module.exports = pool;
 
-module.exports = db;
 
